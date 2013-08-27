@@ -11,7 +11,7 @@ Include the JS and CSS files:
 <link href="css/nevotip.css" rel="stylesheet">
 <script src="js/nevotip.js"></script>
 ```
-*Remember that is good practice include the CSS in the head and javascript before </body> tag.
+*Remember that is good practice include the CSS in the head and javascript before /body tag
 
 For display the tooltip by default just:
 ```javascript
