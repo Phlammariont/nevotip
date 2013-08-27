@@ -1,7 +1,6 @@
-/**
- * jQuery plugin that shows a _new temp tip_.
- * version: 0.1
- * author: Guillermo Rodas
+/*!
+ * Nevo Tip v1.0.2 by @Garethderioth
+ * https://github.com/Garethderioth/nevotip 
  */
 
 (function( $ ) {
@@ -17,10 +16,26 @@
 		
 		var settings = $.extend( {}, defaults, options );
 		
-		return this.filter(":visible").each(function( i, el ) {
+		function markAsRead($el) {
+			var nevoReadIds = localStorage.nevoReadIds != null ? localStorage.nevoReadIds.split(",") : false;
+			
+			if ( nevoReadIds ) {
+				nevoReadIds.push($el.attr("id"));
+			} else {
+				nevoReadIds = [$el.attr("id")];
+			}
+			//Almacenamos el id del elemento en localStorage
+			localStorage.nevoReadIds = nevoReadIds;
+			
+			//Lo destruimos
+			$("#" + $el.data("nevo-id")).fadeOut("fast").remove();
+			$el.data("nevo-id", "");
+		}
+		
+		return this.each(function( i, el ) {
 			var $el = $(el),
 				$parent = $el.parent(),
-				offset = $el.offset(),
+				offset = settings.container == "auto" ? $el.position() : $el.offset(),
 				heigth = $el.height(),
 				width = $el.width(),
 				zIndex = $el.css("z-index"),
@@ -29,32 +44,33 @@
 				readIds = localStorage.nevoReadIds != null ? localStorage.nevoReadIds.split(",") : false;
 
 			if ( options == "destroy" ) {
-				//Eliminamos el nevotip.
+				//Eliminamos el nevotip y su relacion
 				$("#" + $el.data("nevo-id")).remove();
-				//Eliminamos la relacion.
 				$el.data("nevo-id", "");
 				
 			} else if ( options == "hide" ) {
 				$("#" + $el.data("nevo-id")).hide();
 			} else if ( options == "show" ){
 				$("#" + $el.data("nevo-id")).show();
+			} else if ( options == "markAsRead" ) {
+				 markAsRead($el);
 			} else {
-				
-				//Si el elemento ya tiene instanciado un nevotip salimos
-				if ( $el.data("nevo-id") ) {
-					return;
-				}
-
 				//Si la fecha esta vencida salimos
 				if ( dueDate && new Date() > dueDate ) {
 						return;
 				}
-					
+				
 				//Si el elemento ya esta leido salimos
 				for( var i in readIds ) {
 					if( readIds[i] == $el.attr("id") ) {
 						return;
 					}
+				}
+
+				//Si el elemento ya esta instanciado lo mostramos y nos salimos
+				if ( $el.data("nevo-id") ) {
+					$("#" + $el.data("nevo-id")).show();
+					return;
 				}
 				
 				//Buscamos un valor de z-index diferente de auto.
@@ -63,32 +79,20 @@
 					$parent = $parent.parent();
 				}
 				
-				//Establecemos el valor del z-index mayor a su contenedor.
+				//Establecemos el valor del z-index mayor a su contenedor
 				if ( zIndex != "auto" ) {
 					zIndex = ( zIndex + 1 );
 				}
 
-				//Generamos el id temporal.
+				//Generamos el id temporal
 				var nevoId = new Date().getTime();
 				$el.data("nevo-id", "nevotip_" + nevoId);
 				
-				$nevoTip = $("<div />").attr("id", "nevotip_" + nevoId).addClass("nevo-tip").addClass(settings.nevoClass).appendTo(settings.container).css({ "top": ( offset.top - heigth - ( settings.y ) ) + "px", "left": ( offset.left + width - ( settings.x ) ) + "px", "z-index": zIndex }).text(settings.message).append("<span class='nevo-mark-as-read' />");
+				$nevoTip = $("<div />").attr("id", "nevotip_" + nevoId).addClass("nevo-tip").addClass(settings.nevoClass).appendTo( settings.container == "auto" ? $el.parent() : settings.container ).css({ "top": ( offset.top - heigth - ( settings.y ) ) + "px", "left": ( offset.left + width - ( settings.x ) ) + "px", "z-index": zIndex }).text(settings.message).append("<span class='nevo-mark-as-read' />");
 				$nevoTip.children(".nevo-mark-as-read").append(settings.asRead);
 				
 				$nevoTip.off("click").on("click", function() {
-					var nevoReadIds = localStorage.nevoReadIds != null ? localStorage.nevoReadIds.split(",") : false;
-					
-					if ( nevoReadIds ) {
-						nevoReadIds.push($el.attr("id"));
-					} else {
-						nevoReadIds = [$el.attr("id")];
-					}
-					//Almacenamos el id del elemento en localStorage
-					localStorage.nevoReadIds = nevoReadIds;
-					
-					//Lo destruimos
-					$("#" + $el.data("nevo-id")).fadeOut("fast").remove();
-					$el.data("nevo-id", "");
+					 markAsRead($el);
 				});
 			}
 		});
