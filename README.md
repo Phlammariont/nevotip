@@ -1,4 +1,4 @@
-Nevo Tip v1.0.2
+NevoTip v1.0.2
 ================
 A jQuery plugin that shows a tooltip when exist a new feature.
 
