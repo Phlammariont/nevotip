@@ -1,4 +1,4 @@
-nevotip
-=======
+Nevo Tip
+========
 
-A JQuery plugin for show a tooltip when exist a new feature
+A JQuery plugin that shows a tooltip when exist a new feature
