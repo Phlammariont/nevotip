@@ -13,9 +13,15 @@ Include the JS and CSS files:
 ```
 \*Remember that is good practice include the CSS in the head and the Javascript before **\</ body\>**.
 
+Set a due date if you want to expired the tooltip:
+```html
+<!-- You can use the data-due-date for set a due date -->
+<element data-nevo-due-date="dd/mm/aaaa" />
+```
 For use the plugin just code:
 ```javascript
 $("element").nevotip();
+
 ```
 By default the tooltip appends to the body. If you want to show it inside of a modal dialog, instance it in this way:
 ```javascript
