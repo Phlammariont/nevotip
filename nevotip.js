@@ -50,10 +50,13 @@
 				
 			} else if ( options == "hide" ) {
 				$("#" + $el.data("nevo-id")).hide();
-			} else if ( options == "show" ){
+				
+			} else if ( options == "show" ) {
 				$("#" + $el.data("nevo-id")).show();
+				
 			} else if ( options == "markAsRead" ) {
 				 markAsRead($el);
+				 
 			} else {
 				//Si la fecha esta vencida salimos
 				if ( dueDate && new Date() > dueDate ) {
