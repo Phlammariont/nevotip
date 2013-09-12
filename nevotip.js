@@ -1,5 +1,5 @@
 /*!
- * NevoTip v1.0.2 by @Garethderioth
+ * Nevo Tip 0.1.2 by @Garethderioth
  * https://github.com/Garethderioth/nevotip 
  */
 
