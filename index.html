@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Nevotip by Garethderioth</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Nevotip</h1>
+        <p>A jQuery plugin that shows a tooltip when exist a new feature.</p>
+
+        <p class="view"><a href="https://github.com/Garethderioth/nevotip">View the Project on GitHub <small>Garethderioth/nevotip</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Garethderioth/nevotip/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Garethderioth/nevotip/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Garethderioth/nevotip">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="nevo-tip-012" class="anchor" href="#nevo-tip-012"><span class="octicon octicon-link"></span></a>Nevo Tip 0.1.2</h1>
+
+<p>A jQuery plugin that shows a tooltip when exist a new feature.</p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use?</h2>
+
+<p>Include the JS and CSS files:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"css/nevotip.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/nevotip.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>Remember that is good practice include the CSS before the <strong>&lt;/ head&gt;</strong> and the Javascript before <strong>&lt;/ body&gt;</strong>.*</p>
+
+<p>Set a due date if you want to expired the tooltip:</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- You can use the data-due-date for set a due date --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"nevo"</span> <span class="na">class=</span><span class="s">"nevotip"</span> <span class="na">data-nevo-due-date=</span><span class="s">"dd/mm/aaaa"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<p>For use the plugin just code:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">();</span>
+</pre></div>
+
+<p>In order to that Nevo Tip works fine is necessary that all elements have a unique id.</p>
+
+<p>By default the tooltip appends to the body. If you want to show it inside of a modal dialog, instance it in this way:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"element"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">({</span> <span class="nx">container</span><span class="o">:</span> <span class="s2">"auto"</span> <span class="p">});</span>
+</pre></div>
+
+<p>The options by default are:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="p">{</span>
+    <span class="c1">//x position respect to the element</span>
+    <span class="nx">x</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="c1">//y position respect to the element</span>
+    <span class="nx">y</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="c1">//Message to shows, HTML is not available</span>
+    <span class="nx">message</span><span class="o">:</span> <span class="s2">"New!"</span><span class="p">,</span>
+    <span class="c1">//Personalized class</span>
+    <span class="nx">nevoClass</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="c1">//Perzonalized icon for mark as read, HTML is available</span>
+    <span class="nx">asRead</span><span class="o">:</span> <span class="s2">"&amp;nbsp;&amp;times;"</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="methods" class="anchor" href="#methods"><span class="octicon octicon-link"></span></a>Methods</h2>
+
+<p>There are a few methods for take control of the plugin:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">//Hides the tooltip</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"hide"</span><span class="p">);</span>
+
+<span class="c1">//Shows the tooltip</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"show"</span><span class="p">);</span>
+
+<span class="c1">//Removes the tooltip from the DOM</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"destroy"</span><span class="p">);</span>
+
+<span class="c1">//Marks the tooltip as read, putting the id element in the localStorage</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"markAsRead"</span><span class="p">);</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Garethderioth">Garethderioth</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-4959653-5");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
