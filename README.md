@@ -1,4 +1,4 @@
-Nevo Tip 0.1.2
+Nevo Tip 0.2.0
 ================
 A jQuery plugin that shows a tooltip when exist a new feature.
 
@@ -20,13 +20,17 @@ Set a due date if you want to expired the tooltip:
 ```
 For use the plugin just code:
 ```javascript
-$(".nevotip").nevotip();
+$("#nevotip").nevotip();
 ```
 In order to that Nevo Tip works fine is necessary that all elements have a unique id.
 
 By default the tooltip appends to the body. If you want to show it inside of a modal dialog, instance it in this way:
 ```javascript
-$("element").nevotip({ container: "auto" });
+$("#nevotip").nevotip({ container: "auto" });
+```
+Also you can put the **id** of any parent container of the element:
+```javascript
+$("#nevotip").nevotip({ container: "myModalDialog" });
 ```
 
 The options by default are:
@@ -36,6 +40,8 @@ The options by default are:
 	x: 15,
 	//y position respect to the element
 	y: 10,
+	//The container of the nevotip
+	container: "body",
 	//Message to shows, HTML is not available
 	message: "New!",
 	//Personalized class
@@ -51,14 +57,14 @@ There are a few methods for take control of the plugin:
 
 ```javascript
 //Hides the tooltip
-$(".nevotip").nevotip("hide");
+$("#nevotip").nevotip("hide");
 
 //Shows the tooltip
-$(".nevotip").nevotip("show");
+$("#nevotip").nevotip("show");
 
 //Removes the tooltip from the DOM
-$(".nevotip").nevotip("destroy");
+$("#nevotip").nevotip("destroy");
 
 //Marks the tooltip as read, putting the id element in the localStorage
-$(".nevotip").nevotip("markAsRead");
+$("#nevotip").nevotip("markAsRead");
 ```
