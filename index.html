@@ -32,7 +32,7 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a name="nevo-tip-012" class="anchor" href="#nevo-tip-012"><span class="octicon octicon-link"></span></a>Nevo Tip 0.1.2</h1>
+<a name="nevo-tip-020" class="anchor" href="#nevo-tip-020"><span class="octicon octicon-link"></span></a>Nevo Tip 0.2.0</h1>
 
 <p>A jQuery plugin that shows a tooltip when exist a new feature.</p>
 
@@ -55,14 +55,19 @@
 
 <p>For use the plugin just code:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">();</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">();</span>
 </pre></div>
 
 <p>In order to that Nevo Tip works fine is necessary that all elements have a unique id.</p>
 
 <p>By default the tooltip appends to the body. If you want to show it inside of a modal dialog, instance it in this way:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"element"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">({</span> <span class="nx">container</span><span class="o">:</span> <span class="s2">"auto"</span> <span class="p">});</span>
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">({</span> <span class="nx">container</span><span class="o">:</span> <span class="s2">"auto"</span> <span class="p">});</span>
+</pre></div>
+
+<p>Also you can put the <strong>id</strong> of any parent container of the element:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">({</span> <span class="nx">container</span><span class="o">:</span> <span class="s2">"myModalDialog"</span> <span class="p">});</span>
 </pre></div>
 
 <p>The options by default are:</p>
@@ -72,6 +77,8 @@
     <span class="nx">x</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
     <span class="c1">//y position respect to the element</span>
     <span class="nx">y</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="c1">//The container of the nevotip</span>
+    <span class="nx">container</span><span class="o">:</span> <span class="s2">"body"</span><span class="p">,</span>
     <span class="c1">//Message to shows, HTML is not available</span>
     <span class="nx">message</span><span class="o">:</span> <span class="s2">"New!"</span><span class="p">,</span>
     <span class="c1">//Personalized class</span>
@@ -87,16 +94,16 @@
 <p>There are a few methods for take control of the plugin:</p>
 
 <div class="highlight highlight-javascript"><pre><span class="c1">//Hides the tooltip</span>
-<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"hide"</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"hide"</span><span class="p">);</span>
 
 <span class="c1">//Shows the tooltip</span>
-<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"show"</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"show"</span><span class="p">);</span>
 
 <span class="c1">//Removes the tooltip from the DOM</span>
-<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"destroy"</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"destroy"</span><span class="p">);</span>
 
 <span class="c1">//Marks the tooltip as read, putting the id element in the localStorage</span>
-<span class="nx">$</span><span class="p">(</span><span class="s2">".nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"markAsRead"</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#nevotip"</span><span class="p">).</span><span class="nx">nevotip</span><span class="p">(</span><span class="s2">"markAsRead"</span><span class="p">);</span>
 </pre></div>
       </section>
     </div>
