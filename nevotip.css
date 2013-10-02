@@ -15,6 +15,7 @@
 	padding: 2px 5px;
 	position: absolute;
 	text-shadow: 1px 1px 0 #4a1800;
+	line-height: 15px;
 }
 
 .nevo-tip:after {
