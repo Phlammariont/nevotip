@@ -103,7 +103,7 @@
                 var nevoId = new Date().getTime();
                 $el.data("nevo-id", "nevotip_" + nevoId);
                 
-                $nevoTip = $("<div />").attr("id", "nevotip_" + nevoId).addClass("nevo-tip").addClass(settings.nevoClass).appendTo( container == "auto" ? $el.parent() : container ).css({ "top": ( offset.top - heigth - ( settings.y ) ) + "px", "left": ( offset.left + width - ( settings.x ) ) + "px", "z-index": zIndex }).text(settings.message).append("<span class='nevo-mark-as-read' />");
+                var $nevoTip = $("<div />").attr("id", "nevotip_" + nevoId).addClass("nevo-tip").addClass(settings.nevoClass).appendTo( container == "auto" ? $el.parent() : container ).css({ "top": ( offset.top - heigth - ( settings.y ) ) + "px", "left": ( offset.left + width - ( settings.x ) ) + "px", "z-index": zIndex }).text(settings.message).append("<span class='nevo-mark-as-read' />");
                 $nevoTip.children(".nevo-mark-as-read").append(settings.asRead);
                 
                 $nevoTip.off("click").on("click", function() {
