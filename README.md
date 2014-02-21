@@ -1,6 +1,6 @@
 Nevotip 0.2.0
 ================
-A jQuery plugin that shows a tooltip when exist a new feature. There is a demo here: http://jsfiddle.net/Garethderioth/rsecZ/1/
+A jQuery plugin that shows a tooltip when exist a new feature.
 
 
 How to use?
