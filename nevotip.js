@@ -11,7 +11,7 @@
             return offset;
         },
         getDateFromString: function(string) {
-            if(string != null) {
+            if(string != null && string) {
                 var dateArr = string.split("/");
                 return new Date(dateArr[2], dateArr[1] - 1, dateArr[0])
             } else {
@@ -71,11 +71,11 @@
         setDueDate: function() {
             var $el = Nevotip.$el,
                 dateStr = $el.data("nt-due-date") != null ? $el.data("nt-due-date") : false;
-            Nevotip.dueDate = Utils.getDateFromString(dateStr);
+            return  Utils.getDateFromString(dateStr);
         },
         checkDueDate: function() {
             var date = Nevotip.setDueDate();
-            if(!date || (date && new Date() > date)) {
+            if(!date || (new Date() > date)) {
                 return true;
             } else {
                 return false;
@@ -112,11 +112,11 @@
     };
     
     $.fn.nevotip = function(options) {
-        var settings = $.extend({}, Nevotip.defaults, options);
+        var settings = $.extend({}, Nevotip.DEFAULTS, options);
         
         return this.each(function() {
             var $el = $(this);
-            var containerId = settings.container != "auto" && settings.container != "body" ? "#" + settings.container : false;
+            var containerId = settings.container != "auto" && settings.container != "body" ? "#" + settings.container : settings.container;
             
             Nevotip.$el = $el;
             
@@ -164,13 +164,19 @@
             Nevotip.setZindex(zIndex, $parent);
             
             var nevotipId = "nt-" + Utils.getUuid();
+            
             //TODO guardar nevotip-inner
             $el.data("nt-id", nevotipId).addClass("nevotip-inner");
+            
+            //TODO Mejorar para guardar en data las clases
+            if ( $el.css("display") === "block") {
+             	settings.nevotipClass = settings.nevotipClass + " nevotip--block"   
+            }
             
             var $nevotip = $("<span/>").attr("id", nevotipId).addClass("nevotip").addClass(settings.nevotipClass);
             
             if(containerId === "auto") {
-                $nevotip.wrap($el);
+                $el.wrap($nevotip);
                 
                 var offset = $nevotip.position();
                 
