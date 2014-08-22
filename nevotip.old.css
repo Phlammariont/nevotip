@@ -1,0 +1,65 @@
+/* http://jsfiddle.net/CU3ms/3/ */
+
+.nevo-tip {
+	background: #EA6F14;
+	border: 1px solid #993535;
+	box-shadow: inset 0 1px 0 #FA9351, 0 1px 3px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	cursor: pointer;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bolder;
+	padding: 2px 5px;
+	position: absolute;
+	text-shadow: 1px 1px 0 #4a1800;
+	line-height: 15px;
+}
+
+.nevo-tip:after {
+	content: "";
+	border: 5px solid transparent;
+	border-color: #EA6F14 transparent transparent transparent;
+	position: absolute;
+	top: 100%;
+	left: 5px;
+}
+
+.nevo-tip:before {
+	content: "";
+	border: 6px solid transparent;
+	border-color: #993535 transparent transparent transparent;
+	position: absolute;
+	top: 100%;
+	left: 4px;
+}
+
+/* */
+.nevo-mark-as-read {
+	border-left: 1px solid rgba(0, 0, 0, 0.2);
+	margin-left: 5px;
+}
+
+.nevo-mark-as-read:before {
+	content: "";
+	border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nevo-tip-down.nevo-tip:after {
+    content: "";
+    border: 5px solid transparent;
+    border-color: transparent transparent #EA6F14 transparent;
+    position: absolute;
+    bottom: 100%;
+    top: auto;
+    left: 5px;
+}
+
+.nevo-tip-down.nevo-tip:before {
+    content: "";
+    border: 6px solid transparent;
+    border-color: transparent transparent #993535  transparent;
+    position: absolute;
+    bottom: 100%;
+    top: auto;
+    left: 4px;
+}

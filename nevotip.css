@@ -1,47 +1,84 @@
-/*!
- * Nevo Tip 0.2.0 by @Garethderioth
- * https://github.com/Garethderioth/nevotip 
- */
-
-.nevo-tip {
-	background: #EA6F14;
-	border: 1px solid #993535;
-	box-shadow: inset 0 1px 0 #FA9351, 0 1px 3px rgba(0,0,0,0.2);
-	border-radius: 5px;
-	cursor: pointer;
-	color: #fff;
-	font-size: 12px;
-	font-weight: bolder;
-	padding: 2px 5px;
-	position: absolute;
-	text-shadow: 1px 1px 0 #4a1800;
-	line-height: 15px;
+.test {
+    margin: 50px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 5px;
 }
 
-.nevo-tip:after {
-	content: "";
-	border: 5px solid transparent;
-	border-color: #EA6F14 transparent transparent transparent;
-	position: absolute;
-	top: 100%;
-	left: 5px;
+.nevotip.nevotip--block {
+    display: block;
 }
 
-.nevo-tip:before {
-	content: "";
-	border: 6px solid transparent;
-	border-color: #993535 transparent transparent transparent;
-	position: absolute;
-	top: 100%;
-	left: 4px;
+.nevotip.nevotip--block:after,
+.nevotip.nevotip--block:before
+{
+    right: initial;
 }
 
-.nevo-mark-as-read {
-	border-left: 1px solid rgba(0, 0, 0, 0.2);
-	margin-left: 5px;
+.nevotip.nevotip--block:before
+{
+    left: 18px;
 }
 
-.nevo-mark-as-read:before {
-	content: "";
-	border-left: 1px solid rgba(255, 255, 255, 0.2);
+.nevotip {
+    position: relative;
+    background: #eee;
+}
+
+.nevotip[data-nt-lang="es"]:after{
+    content: "Nuevo!";
+}
+
+.nevotip:after {
+    background: #EA6F14;
+    content:"New!";
+    font-family: Arial;
+    border-radius: 3px;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bolder;
+    line-height: 18px;
+    padding: 2px 5px 3px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -25px;
+    bottom: 0;
+    width: 38px;
+    margin: 0 auto;
+    text-align: center;
+    height: 15px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    opacity: 0.95;
+}
+
+.nevotip:before {
+    content:"";
+    border: 6px solid transparent;
+    border-color: #EA6F14 transparent transparent transparent;
+    position: absolute;
+    margin: 0 auto;
+    width: 0;
+    top: -6px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.nevotip.nevotip--down:before {
+    content:"";
+    border: 6px solid transparent;
+    border-color: transparent transparent #EA6F14 transparent;
+    position: absolute;
+    margin: 0 auto;
+    width: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+}
+
+.nevotip.nevotip--external:before {
+    left: 18px;
 }

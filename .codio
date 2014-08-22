@@ -1,0 +1,12 @@
+{
+    "commands": {
+        "Grunt Serve": "grunt serve",
+        "Grunt Test": "grunt test",
+        "Grunt Build": "grunt",
+        "Grunt Serve:Dist": "grunt serve:dist"
+    },
+    "preview": {
+        "Static": "http://{{domain}}/",
+        "Yeoman": "http://{{domain}}:9000/"
+    }
+}

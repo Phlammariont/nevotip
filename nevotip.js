@@ -1,115 +1,199 @@
-/*!
- * Nevo Tip 0.2.0 by @Garethderioth
- * https://github.com/Garethderioth/nevotip 
- */
-
-(function( $ ) {
-    $.fn.nevotip = function( options ) {
-        var defaults = {
-            x: 15,
-            y: 10,
-            container: "body",
-            message: "New!",
-            nevoClass: "",
-            asRead: "&nbsp;&times;"
-        };
-        
-        var settings = $.extend( {}, defaults, options );
-        
-        function markAsRead( $el ) {
-            var nevoReadIds = localStorage.nevoReadIds != null ? localStorage.nevoReadIds.split(",") : false;
-            
-            if ( nevoReadIds ) {
-                nevoReadIds.push($el.attr("id"));
+(function($) {
+    "use strict";
+    
+    var Utils = {
+        getOffset: function($el, $container) {
+            var elOffset = $el.offset(),
+                containerOffset = $container.offset(),
+                offset = {};
+            offset.left = elOffset.left - containerOffset.left;
+            offset.top = elOffset.top - containerOffset.top;
+            return offset;
+        },
+        getDateFromString: function(string) {
+            if(string != null) {
+                var dateArr = string.split("/");
+                return new Date(dateArr[2], dateArr[1] - 1, dateArr[0])
             } else {
-                nevoReadIds = [$el.attr("id")];
+                return false;
             }
-            //Almacenamos el id del elemento en localStorage
-            localStorage.nevoReadIds = nevoReadIds;
-            
-            //Lo destruimos
-            $("#" + $el.data("nevo-id")).fadeOut("fast").remove();
-            $el.data("nevo-id", "");
+        },
+        getUuid: function() {
+            var i, random;
+            var uuid = "";
+            for(i = 0; i < 32; i++) {
+                random = Math.random() * 16 | 0;
+                if(i === 8 || i === 12 || i === 16 || i === 20) {
+                    uuid += "-";
+                }
+                uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
+            }
+            return uuid;
         }
-        
-        function calculateOffset( $el, container) {
-            var elementOffset = $el.offset(),
-                containerOffset = $(container).offset(),
-                realOffset = {};
-            
-            realOffset.left = elementOffset.left - containerOffset.left;
-            realOffset.top = elementOffset.top - containerOffset.top;
-            
-            return realOffset;
-        }
-        
-        return this.each(function( i, el ) {
-            var $el = $(el),
-                $parent = $el.parent(),
-                container = settings.container == "auto" || settings.container == "body" ? settings.container : "#" + settings.container,
-                offset = settings.container == "auto" ? $el.position() : calculateOffset($el, container),
-                heigth = $el.height(),
-                width = $el.width(),
-                zIndex = $el.css("z-index"),
-                dateArray = $el.data("nevo-due-date") != null ? $el.data("nevo-due-date").split("/") : false,
-                dueDate = dateArray != false ? new Date(dateArray[2], dateArray[1] - 1, dateArray[0]) : false,
-                readIds = localStorage.nevoReadIds != null ? localStorage.nevoReadIds.split(",") : false;
-
-            if ( options == "destroy" ) {
-                //Eliminamos el nevotip y su relacion
-                $("#" + $el.data("nevo-id")).remove();
-                $el.data("nevo-id", "");
-                
-            } else if ( options == "hide" ) {
-                $("#" + $el.data("nevo-id")).hide();
-                
-            } else if ( options == "show" ) {
-                $("#" + $el.data("nevo-id")).show();
-                
-            } else if ( options == "markAsRead" ) {
-                 markAsRead($el);
-                 
+    };
+    
+    var Nevotip = {
+        markAsRead: function() {
+            var $el = Nevotip.$el,
+                id = $el.attr("id"),
+                readIds = Nevotip.getLocalReadIds();
+            if(readIds) {
+                readIds.push(id);
             } else {
-                //Si la fecha esta vencida salimos
-                if ( dueDate && new Date() > dueDate ) {
-                        return;
+                readIds = [id];
+            }
+            localStorage.NevotipReadIds = readIds;
+            Nevotip.destroy();
+        },
+        getLocalReadIds: function() {
+            if(localStorage.NevotipReadIds != null) {
+                return localStorage.NevotipReadIds.split(",");
+            } else {
+                return false;
+            }
+        },
+        destroy: function() {
+            //TODO
+            Nevotip.$nevotip.fadeOut("fast").remove();
+            Nevotip.$el.data("nt-id", "");
+        },
+        hide: function() {
+            //TODO
+            Nevotip.$nevotip.fadeOut("fast");
+        },
+        show: function() {
+            // TODO
+            Nevotip.$nevotip.fadeIn("fast");
+        },
+        cleanLocalstorage: function() {
+            delete localStorage.NevotipReadIds;
+        },
+        setDueDate: function() {
+            var $el = Nevotip.$el,
+                dateStr = $el.data("nt-due-date") != null ? $el.data("nt-due-date") : false;
+            Nevotip.dueDate = Utils.getDateFromString(dateStr);
+        },
+        checkDueDate: function() {
+            var date = Nevotip.setDueDate();
+            if(!date || (date && new Date() > date)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        checkIfIsRead: function() {
+            var readIds = Nevotip.getLocalReadIds();
+            for(var i in readIds) {
+                if(readIds[i] == $el.attr("id")) {
+                    return true;
                 }
+            }
+            return false;
+        },
+        setZindex: function(zIndex, $parent) {
+            while(zIndex == "auto" && !$parent.is("body")) {
+                zIndex = $parent.css("z-index");
+                $parent = $parent.parent();
+            }
+            if(zIndex != "auto") {
+                Nevotip.zIndex = (zIndex + 1);
+            }
+        }
+    };
+    
+    Nevotip.VERSION = "2.0.0";
+    
+    Nevotip.DEFAULTS = {
+        x: 0,
+        y: 0,
+        gravity: "s",
+        nevotipClass: "",
+        container: "auto"
+    };
+    
+    $.fn.nevotip = function(options) {
+        var settings = $.extend({}, Nevotip.defaults, options);
+        
+        return this.each(function() {
+            var $el = $(this);
+            var containerId = settings.container != "auto" && settings.container != "body" ? "#" + settings.container : false;
+            
+            Nevotip.$el = $el;
+            
+            // TODO validar si existe
+            Nevotip.nevotipId = Nevotip.$el.data("nt-id");
+            
+            // TODO validar si existe
+            Nevotip.$nevotip = $("#" + nevotipId);
+            
+            if(options === "destroy") {
+                Nevotip.destroy();
+                return;
+            } else if(options === "clean") {
+                Nevotip.cleanLocalstorage();
+                return;
+            } else if(options === "mark") {
+                Nevotip.markAsRead();
+                return;
+            } else if(options === "show") {
+                Nevotip.show();
+                return;
+            } else if(options === "hide") {
+                Nevotip.hide();
+                return;
+            }
+            
+            // Check if the date is expired.
+            if(Nevotip.checkDueDate()) {
+                return;
+            }
+            
+            // Check if the nevotip is mark as read.
+            if(Nevotip.checkIfIsRead()) {
+                return;
+            }
+            
+            // If the nevotip is instanced then just show it.
+            if(Nevotip.nevotipId) {
+                Nevotip.show();
+                return;
+            }
+            var $parent = $el.parent(),
+                zIndex = $el.css("z-index");
+            // Calculate the z-index
+            Nevotip.setZindex(zIndex, $parent);
+            
+            var nevotipId = "nt-" + Utils.getUuid();
+            //TODO guardar nevotip-inner
+            $el.data("nt-id", nevotipId).addClass("nevotip-inner");
+            
+            var $nevotip = $("<span/>").attr("id", nevotipId).addClass("nevotip").addClass(settings.nevotipClass);
+            
+            if(containerId === "auto") {
+                $nevotip.wrap($el);
                 
-                //Si el elemento ya esta leido salimos
-                for( var i in readIds ) {
-                    if( readIds[i] == $el.attr("id") ) {
-                        return;
-                    }
-                }
-
-                //Si el elemento ya esta instanciado lo mostramos y nos salimos
-                if ( $el.data("nevo-id") ) {
-                    $("#" + $el.data("nevo-id")).show();
-                    return;
-                }
+                var offset = $nevotip.position();
                 
-                //Buscamos un valor de z-index diferente de auto.
-                while ( zIndex == "auto" && !$parent.is("body") ) {
-                    zIndex = $parent.css("z-index");
-                    $parent = $parent.parent();
-                }
+                $nevotip.css({
+                    "top": (offset.top - (settings.y)) + "px",
+                    "left": (offset.left + (settings.x)) + "px",
+                    "z-index": $nevotip.zIndex
+                });
+            } else if(containerId === "body" || containerId ) {
+                var offset = Utils.getOffset($el, $(containerId)),
+                	heigth = $el.height(),
+                	width = $el.width(); 
                 
-                //Establecemos el valor del z-index mayor a su contenedor
-                if ( zIndex != "auto" ) {
-                    zIndex = ( zIndex + 1 );
-                }
-
-                //Generamos el id temporal
-                var nevoId = new Date().getTime();
-                $el.data("nevo-id", "nevotip_" + nevoId);
-                
-                var $nevoTip = $("<div />").attr("id", "nevotip_" + nevoId).addClass("nevo-tip").addClass(settings.nevoClass).appendTo( container == "auto" ? $el.parent() : container ).css({ "top": ( offset.top - heigth - ( settings.y ) ) + "px", "left": ( offset.left + width - ( settings.x ) ) + "px", "z-index": zIndex }).text(settings.message).append("<span class='nevo-mark-as-read' />");
-                $nevoTip.children(".nevo-mark-as-read").append(settings.asRead);
-                
-                $nevoTip.off("click").on("click", function() {
-                     markAsRead($el);
+                $nevotip.addClass("nevotip--external").appendTo("body").css({
+                    "top": (offset.top - heigth - (settings.y)) + "px",
+                    "left": (offset.left + width + (settings.x)) + "px",
+                    "z-index": $nevotip.zIndex                    
                 });
             }
+            
+            $nevotip.on("click", Nevotip.markAsRead);
+            //TODO
+            //$(".nevotip-inner").on("click", Nevotip.markAsRead);
         });
     };
-}( jQuery ));
+}(jQuery));
