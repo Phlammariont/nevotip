@@ -1,4 +1,13 @@
-Nevotip 0.2.0
+- Agregar las 4 direcciones CSS y un parametro.
+- Agregar "no-break" para el tamaño.
+- Cambiar para que se le pase mensaje personalizado.
+- Considerar si el container body es necesario.
+- Agregar un listenes para la position del $el.
+- Agregar un paremetro para la posicion del nevotip (center, left, right)
+- Hacer la documentacion
+
+
+Nevotip 1.2.0
 ================
 A jQuery plugin that shows a tooltip when exist a new feature.
 

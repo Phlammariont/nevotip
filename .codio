@@ -1,9 +1,9 @@
 {
     "commands": {
-        "Grunt Serve": "grunt serve",
-        "Grunt Test": "grunt test",
-        "Grunt Build": "grunt",
-        "Grunt Serve:Dist": "grunt serve:dist"
+        "Grunt Serve": "cd docs && grunt serve",
+        "Grunt Test": "cd docs && grunt test",
+        "Grunt Build": "cd docs && grunt",
+        "Grunt Serve:Dist": "cd docs && grunt serve:dist"
     },
     "preview": {
         "Static": "http://{{domain}}/",

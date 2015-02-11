@@ -45,12 +45,13 @@
     right: 0;
     top: -25px;
     bottom: 0;
-    width: 38px;
+    width: 40px;
     margin: 0 auto;
     text-align: center;
     height: 15px;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
     opacity: 0.95;
+    white-space: nowrap;
 }
 
 .nevotip:before {

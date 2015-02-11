@@ -114,7 +114,7 @@
             }
         }
     };
-    Nevotip.VERSION = "2.0.0";
+    Nevotip.VERSION = "1.2.0";
     Nevotip.DEFAULTS = {
         x: 0,
         y: 0,
@@ -183,7 +183,8 @@
                 $nevotip.addClass("nevotip--external").appendTo(containerId).css({
                     "top": (offset.top - heigth - (settings.y)) + "px",
                     "left": (offset.left + width + (settings.x)) + "px",
-                    "z-index": $nevotip.zIndex
+                    "z-index": $nevotip.zIndex,
+                    "position": "absolute"
                 });
             }
             //Save the current classes
